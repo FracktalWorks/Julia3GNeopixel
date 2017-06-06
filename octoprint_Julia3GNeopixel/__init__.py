@@ -45,6 +45,8 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 		if event == Events.PRINT_STARTED:
 			#start thread to check and display progress
 			self._timer=RepeatedTimer(5,self.displayProgressPrinting)
+		elif event == Events.PRINT_RESUMED:
+			self._timer=RepeatedTimer(5,self.displayProgressPrinting)
 		elif event == Events.PRINT_DONE:
 			#display leds to print done
 			self._logger.info("Printing stopped")
@@ -69,7 +71,9 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 		#get progress from this data
 		progress=data["progress"]["completion"]
 		#self._logger.info("Progress " + str(progress))
-		progress=int(progress)
+		if progress < 10:
+			progress=10
+		progress=int(progress/10)
 		self.bus.write_byte(self.neopixeladdr,progress)
 		time.sleep(0.1)
 		self.bus.write_byte(self.neopixeladdr,self._event["PRINTING"])

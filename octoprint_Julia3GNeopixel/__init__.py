@@ -92,7 +92,7 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 
 
 __plugin_name__ = "Julia3GNeoPixel"
-__plugin_version__ = "0.0.6"
+__plugin_version__ = "0.0.7"
 
 def __plugin_load__():
 	global __plugin_implementation__

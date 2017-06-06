@@ -68,7 +68,7 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 		data=self._printer.get_current_data()
 		#get progress from this data
 		progress=data["progress"]["completion"]
-		self._logger.info("Progress " + str(progress))
+		#self._logger.info("Progress " + str(progress))
 		progress=int(progress)
 		self.bus.write_byte(self.neopixeladdr,progress)
 		time.sleep(0.1)
@@ -77,7 +77,7 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 
 	def get_update_information(self):
 		return dict(
-			Julia3GNeoPixel=dict(
+			Julia3GNeopixel=dict(
 				displayName="Julia3GNeoPixel",
 				displayVersion=self._plugin_version,
 				# version check: github repository
@@ -92,8 +92,8 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 		)
 
 
-__plugin_name__ = "Julia3GNeoPixel"
-__plugin_version__ = "1.0.0"
+__plugin_name__ = "Julia3GNeopixel"
+__plugin_version__ = "1.0.1"
 
 def __plugin_load__():
 	global __plugin_implementation__

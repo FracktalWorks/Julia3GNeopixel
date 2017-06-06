@@ -1,2 +1,2 @@
 octoPrint
-python-smbus
+smbus-cffi

@@ -76,7 +76,7 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 
 	def get_update_information(self):
 		return dict(
-			Julia3GTouchUI=dict(
+			Julia3GNeoPixel=dict(
 				displayName="Julia3GNeoPixel",
 				displayVersion=self._plugin_version,
 				# version check: github repository
@@ -92,7 +92,7 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 
 
 __plugin_name__ = "Julia3GNeoPixel"
-__plugin_version__ = "0.0.7"
+__plugin_version__ = "0.0.8"
 
 def __plugin_load__():
 	global __plugin_implementation__

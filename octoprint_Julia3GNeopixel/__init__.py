@@ -44,9 +44,9 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 	def on_event(self, event, payload):
 		if event == Events.PRINT_STARTED:
 			#start thread to check and display progress
-			self._timer=RepeatedTimer(5,self.displayProgressPrinting)
+			self._timer=RepeatedTimer(30,self.displayProgressPrinting)
 		elif event == Events.PRINT_RESUMED:
-			self._timer=RepeatedTimer(5,self.displayProgressPrinting)
+			self._timer=RepeatedTimer(30,self.displayProgressPrinting)
 		elif event == Events.PRINT_DONE:
 			#display leds to print done
 			self._logger.info("Printing stopped")
@@ -56,6 +56,12 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 			#display urgency
 			self._logger.info("Printing failed")
 			self.bus.write_byte(self.neopixeladdr,self._event["ERROR"])
+			self._timer.stop()
+		elif event == Events.PRINT_CANCELLED:
+			self._logger.info("Printing stopped")
+			self.bus.write_byte(self.neopixeladdr,self._event["ERROR"])
+			time.sleep(1)
+			self.bus.write_byte(self.neopixeladdr,self._event["BREATHE"])
 			self._timer.stop()
 		elif event == Events.PRINT_PAUSED:
 			#display paused print led
@@ -97,7 +103,7 @@ class Julia3GNeopixel(octoprint.plugin.StartupPlugin,octoprint.plugin.EventHandl
 
 
 __plugin_name__ = "Julia3GNeopixel"
-__plugin_version__ = "1.0.1"
+__plugin_version__ = "1.0.2"
 
 def __plugin_load__():
 	global __plugin_implementation__
